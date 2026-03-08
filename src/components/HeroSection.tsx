@@ -5,13 +5,19 @@ import NetworkGlobe from "./NetworkGlobe";
 import DataFlowParticles from "./DataFlowParticles";
 import { BarChart3, Brain, Database, Settings, TrendingUp, Cpu } from "lucide-react";
 
-const icons = [
-  { Icon: BarChart3, angle: 0, radius: 18 },
-  { Icon: Brain, angle: 60, radius: 20 },
-  { Icon: Database, angle: 120, radius: 17 },
-  { Icon: Settings, angle: 180, radius: 19 },
-  { Icon: TrendingUp, angle: 240, radius: 18 },
-  { Icon: Cpu, angle: 300, radius: 20 },
+// Icon positions placed around the globe area (fixed, not rotating)
+const iconNodes = [
+  { Icon: BarChart3, x: "6%", y: "25%" },
+  { Icon: Brain, x: "3%", y: "45%" },
+  { Icon: Database, x: "8%", y: "65%" },
+  { Icon: Settings, x: "20%", y: "20%" },
+  { Icon: TrendingUp, x: "22%", y: "70%" },
+  { Icon: Cpu, x: "18%", y: "45%" },
+];
+
+// Connection lines between icon pairs (indices)
+const connections: [number, number][] = [
+  [0, 3], [0, 5], [1, 2], [1, 5], [2, 4], [3, 5], [4, 5],
 ];
 
 const HeroSection = () => {
@@ -27,43 +33,66 @@ const HeroSection = () => {
         </Canvas>
       </div>
 
-      {/* Orbiting icons around globe */}
-      <div className="absolute z-[2] pointer-events-none" style={{ top: "50%", left: "15%", transform: "translate(-50%, -50%)" }}>
-        <div className="relative w-0 h-0">
-          {icons.map(({ Icon, angle, radius }, i) => (
-            <motion.div
+      {/* Fixed icons with pulsing data connections */}
+      <div className="absolute inset-0 z-[2] pointer-events-none">
+        {/* SVG connection lines with pulse animation */}
+        <svg className="absolute inset-0 w-full h-full">
+          {connections.map(([a, b], i) => (
+            <line
               key={i}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{
-                opacity: [0.6, 1, 0.6],
-                scale: 1,
-                rotate: [0, 360],
-              }}
-              transition={{
-                opacity: { repeat: Infinity, duration: 4, delay: i * 0.5 },
-                rotate: { repeat: Infinity, duration: 20 + i * 3, ease: "linear" },
-                scale: { delay: 1 + i * 0.15, duration: 0.5 },
-              }}
-              className="absolute"
-              style={{
-                width: 0,
-                height: 0,
-                transformOrigin: "center center",
-              }}
+              x1={iconNodes[a].x}
+              y1={iconNodes[a].y}
+              x2={iconNodes[b].x}
+              y2={iconNodes[b].y}
+              stroke="hsl(270, 60%, 55%)"
+              strokeWidth="1"
+              opacity="0.15"
             >
-              <div
-                className="absolute flex items-center justify-center w-9 h-9 rounded-full bg-muted/20 border border-primary/20 backdrop-blur-sm"
-                style={{
-                  left: `${radius}vw`,
-                  top: `-18px`,
-                  transform: `rotate(${angle}deg) translateX(0)`,
-                }}
-              >
-                <Icon size={14} className="text-secondary" />
-              </div>
-            </motion.div>
+              <animate
+                attributeName="opacity"
+                values="0.08;0.3;0.08"
+                dur={`${2 + i * 0.5}s`}
+                repeatCount="indefinite"
+              />
+            </line>
           ))}
-        </div>
+
+          {/* Traveling data dots along connections */}
+          {connections.map(([a, b], i) => (
+            <circle key={`dot-${i}`} r="2" fill="hsl(185, 70%, 50%)">
+              <animateMotion
+                dur={`${2.5 + i * 0.4}s`}
+                repeatCount="indefinite"
+                path={`M ${iconNodes[a].x.replace('%','')} ${iconNodes[a].y.replace('%','')} L ${iconNodes[b].x.replace('%','')} ${iconNodes[b].y.replace('%','')}`}
+              />
+              <animate
+                attributeName="opacity"
+                values="0;1;1;0"
+                dur={`${2.5 + i * 0.4}s`}
+                repeatCount="indefinite"
+              />
+            </circle>
+          ))}
+        </svg>
+
+        {/* Icon nodes - fixed position, pulsing glow */}
+        {iconNodes.map(({ Icon, x, y }, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.8 + i * 0.15, duration: 0.5 }}
+            className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-muted/25 border border-primary/25 backdrop-blur-sm"
+            style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}
+          >
+            <motion.div
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ repeat: Infinity, duration: 3, delay: i * 0.5 }}
+            >
+              <Icon size={16} className="text-secondary" />
+            </motion.div>
+          </motion.div>
+        ))}
       </div>
 
       {/* Gradient overlays */}

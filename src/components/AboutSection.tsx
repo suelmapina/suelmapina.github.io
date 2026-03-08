@@ -85,7 +85,7 @@ const AboutSection = () => {
               <img
                 src={profileImg}
                 alt="Suelma Pina"
-                className="relative w-full max-w-md h-auto object-cover rounded-2xl"
+                className="relative w-full max-w-lg h-[500px] object-cover rounded-2xl"
               />
             </div>
           </motion.div>

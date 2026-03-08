@@ -5,19 +5,19 @@ import NetworkGlobe from "./NetworkGlobe";
 import DataFlowParticles from "./DataFlowParticles";
 import { BarChart3, Brain, Database, Settings, TrendingUp, Cpu } from "lucide-react";
 
-// Icon positions placed around the globe area (fixed, not rotating)
+// Icon node positions in viewBox coordinates (0-100 space)
 const iconNodes = [
-  { Icon: BarChart3, x: "6%", y: "25%" },
-  { Icon: Brain, x: "3%", y: "45%" },
-  { Icon: Database, x: "8%", y: "65%" },
-  { Icon: Settings, x: "20%", y: "20%" },
-  { Icon: TrendingUp, x: "22%", y: "70%" },
-  { Icon: Cpu, x: "18%", y: "45%" },
+  { Icon: BarChart3, cx: 8, cy: 25 },
+  { Icon: Brain, cx: 4, cy: 48 },
+  { Icon: Database, cx: 10, cy: 70 },
+  { Icon: Settings, cx: 22, cy: 22 },
+  { Icon: TrendingUp, cx: 24, cy: 72 },
+  { Icon: Cpu, cx: 20, cy: 48 },
 ];
 
-// Connection lines between icon pairs (indices)
+// Connections between node pairs
 const connections: [number, number][] = [
-  [0, 3], [0, 5], [1, 2], [1, 5], [2, 4], [3, 5], [4, 5],
+  [0, 3], [0, 5], [1, 2], [1, 5], [2, 4], [3, 5], [4, 5], [0, 1], [3, 4],
 ];
 
 const HeroSection = () => {
@@ -33,61 +33,121 @@ const HeroSection = () => {
         </Canvas>
       </div>
 
-      {/* Fixed icons with pulsing data connections */}
+      {/* Icon network overlay with animated data flow */}
       <div className="absolute inset-0 z-[2] pointer-events-none">
-        {/* SVG connection lines with pulse animation */}
-        <svg className="absolute inset-0 w-full h-full">
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          className="absolute inset-0 w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            {/* Glow filter */}
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="0.4" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Connection lines - pulsing opacity */}
           {connections.map(([a, b], i) => (
-            <line
-              key={i}
-              x1={iconNodes[a].x}
-              y1={iconNodes[a].y}
-              x2={iconNodes[b].x}
-              y2={iconNodes[b].y}
-              stroke="hsl(270, 60%, 55%)"
-              strokeWidth="1"
-              opacity="0.15"
-            >
-              <animate
-                attributeName="opacity"
-                values="0.08;0.3;0.08"
-                dur={`${2 + i * 0.5}s`}
-                repeatCount="indefinite"
-              />
-            </line>
+            <g key={`conn-${i}`}>
+              {/* Base line */}
+              <line
+                x1={iconNodes[a].cx}
+                y1={iconNodes[a].cy}
+                x2={iconNodes[b].cx}
+                y2={iconNodes[b].cy}
+                stroke="hsl(270, 60%, 55%)"
+                strokeWidth="0.15"
+              >
+                <animate
+                  attributeName="opacity"
+                  values="0.1;0.4;0.1"
+                  dur={`${2 + i * 0.6}s`}
+                  repeatCount="indefinite"
+                />
+              </line>
+
+              {/* Traveling data dot */}
+              <circle r="0.4" fill="hsl(185, 70%, 60%)" filter="url(#glow)">
+                <animateMotion
+                  dur={`${1.8 + i * 0.3}s`}
+                  repeatCount="indefinite"
+                  path={`M${iconNodes[a].cx},${iconNodes[a].cy} L${iconNodes[b].cx},${iconNodes[b].cy}`}
+                />
+                <animate
+                  attributeName="opacity"
+                  values="0;0.9;0.9;0"
+                  dur={`${1.8 + i * 0.3}s`}
+                  repeatCount="indefinite"
+                />
+              </circle>
+
+              {/* Reverse traveling dot (data flows both ways) */}
+              <circle r="0.3" fill="hsl(270, 70%, 70%)" filter="url(#glow)">
+                <animateMotion
+                  dur={`${2.5 + i * 0.4}s`}
+                  repeatCount="indefinite"
+                  path={`M${iconNodes[b].cx},${iconNodes[b].cy} L${iconNodes[a].cx},${iconNodes[a].cy}`}
+                />
+                <animate
+                  attributeName="opacity"
+                  values="0;0.7;0.7;0"
+                  dur={`${2.5 + i * 0.4}s`}
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </g>
           ))}
 
-          {/* Traveling data dots along connections */}
-          {connections.map(([a, b], i) => (
-            <circle key={`dot-${i}`} r="2" fill="hsl(185, 70%, 50%)">
-              <animateMotion
-                dur={`${2.5 + i * 0.4}s`}
+          {/* Node glow rings */}
+          {iconNodes.map(({ cx, cy }, i) => (
+            <circle
+              key={`ring-${i}`}
+              cx={cx}
+              cy={cy}
+              r="2.5"
+              fill="none"
+              stroke="hsl(270, 60%, 55%)"
+              strokeWidth="0.1"
+            >
+              <animate
+                attributeName="r"
+                values="2;3;2"
+                dur={`${3 + i * 0.5}s`}
                 repeatCount="indefinite"
-                path={`M ${iconNodes[a].x.replace('%','')} ${iconNodes[a].y.replace('%','')} L ${iconNodes[b].x.replace('%','')} ${iconNodes[b].y.replace('%','')}`}
               />
               <animate
                 attributeName="opacity"
-                values="0;1;1;0"
-                dur={`${2.5 + i * 0.4}s`}
+                values="0.3;0.1;0.3"
+                dur={`${3 + i * 0.5}s`}
                 repeatCount="indefinite"
               />
             </circle>
           ))}
         </svg>
 
-        {/* Icon nodes - fixed position, pulsing glow */}
-        {iconNodes.map(({ Icon, x, y }, i) => (
+        {/* Icon nodes as HTML overlays */}
+        {iconNodes.map(({ Icon, cx, cy }, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.8 + i * 0.15, duration: 0.5 }}
-            className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-muted/25 border border-primary/25 backdrop-blur-sm"
-            style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}
+            className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-muted/30 border border-primary/30 backdrop-blur-sm"
+            style={{
+              left: `${cx}%`,
+              top: `${cy}%`,
+              transform: "translate(-50%, -50%)",
+            }}
           >
             <motion.div
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ repeat: Infinity, duration: 3, delay: i * 0.5 }}
+              animate={{ opacity: [0.6, 1, 0.6] }}
+              transition={{ repeat: Infinity, duration: 3, delay: i * 0.4 }}
             >
               <Icon size={16} className="text-secondary" />
             </motion.div>

@@ -3,7 +3,16 @@ import { Suspense } from "react";
 import { motion } from "framer-motion";
 import NetworkGlobe from "./NetworkGlobe";
 import DataFlowParticles from "./DataFlowParticles";
-import GlobeIcons from "./GlobeIcons";
+import { BarChart3, Brain, Database, Settings, TrendingUp, Cpu } from "lucide-react";
+
+const icons = [
+  { Icon: BarChart3, top: "18%", left: "8%" },
+  { Icon: Brain, top: "35%", left: "2%" },
+  { Icon: Database, top: "55%", left: "5%" },
+  { Icon: Settings, top: "72%", left: "12%" },
+  { Icon: TrendingUp, top: "25%", left: "22%" },
+  { Icon: Cpu, top: "65%", left: "25%" },
+];
 
 const HeroSection = () => {
   return (
@@ -14,39 +23,56 @@ const HeroSection = () => {
           <Suspense fallback={null}>
             <NetworkGlobe />
             <DataFlowParticles />
-            <GlobeIcons />
           </Suspense>
         </Canvas>
       </div>
 
-      {/* Gradient overlays for blending */}
+      {/* CSS overlay icons around globe area */}
+      <div className="absolute inset-0 z-[2] pointer-events-none">
+        {icons.map(({ Icon, top, left }, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1 + i * 0.15, duration: 0.5 }}
+            className="absolute flex items-center justify-center w-9 h-9 rounded-full bg-muted/20 border border-primary/20 backdrop-blur-sm"
+            style={{ top, left }}
+          >
+            <Icon size={14} className="text-secondary" />
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Gradient overlays */}
       <div className="absolute bottom-0 left-0 right-0 h-24 z-[1] bg-gradient-to-t from-background to-transparent" />
 
-      {/* Name centered — overlapping the flow */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-        <div className="text-center">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1.2 }}
-            className="text-secondary font-mono text-xs mb-3 tracking-[0.4em] uppercase"
-          >
-            Senior Data Scientist
-          </motion.p>
+      {/* Name positioned inside the flow cloud, right of globe */}
+      <div className="absolute inset-0 z-10 flex items-center pointer-events-none">
+        <div className="container mx-auto px-6">
+          <div className="ml-[35%] md:ml-[40%]">
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 1.2 }}
+              className="text-secondary font-mono text-xs mb-3 tracking-[0.4em] uppercase"
+            >
+              Senior Data Scientist
+            </motion.p>
 
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 1.5 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-light tracking-[0.15em] text-foreground/90"
-          >
-            SUELMA{" "}
-            <span className="text-gradient font-normal">PINA</span>
-          </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 1.5 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-light tracking-[0.15em] text-foreground/90"
+            >
+              SUELMA{" "}
+              <span className="text-gradient font-normal">PINA</span>
+            </motion.h1>
+          </div>
         </div>
       </div>
 
-      {/* Social links on right edge */}
+      {/* Social links */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}

@@ -104,25 +104,39 @@ const AboutSection = () => {
             viewport={{ once: true }}
             variants={fadeUp}
             custom={2}
+            className="space-y-5"
           >
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Senior Data Scientist with 8+ years of experience delivering end-to-end machine learning
-              and statistical modeling solutions across telecom, energy, retail, mobility, and public sector.
-              Expert in Python, MLflow, and Kedro for scalable MLOps pipelines, model deployment, and CI/CD
-              automation. Currently expanding expertise in Generative AI and LLM pipelines (LangChain, RAG, LoRA).
+            <p className="text-base text-muted-foreground leading-relaxed">
+              At 8 years old, I ran my first "business" — buying candy and reselling it at school, 
+              even hiring my cousin as my first employee. My mother shut it down quickly, but the 
+              entrepreneurial seed was planted.
             </p>
 
-            {/* Skills */}
-            <div className="flex flex-wrap gap-2">
-              {skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1.5 text-xs font-mono rounded-full bg-muted text-muted-foreground border border-border hover:border-primary hover:text-foreground transition-colors"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
+            <p className="text-base text-muted-foreground leading-relaxed">
+              Years later, a rejected university transfer — missed by just 0.10 points — redirected 
+              me from Economics to Statistics. What felt like failure was actually destiny. That 
+              redirection led me to discover Data Science, and it's been love ever since.
+            </p>
+
+            <p className="text-base text-muted-foreground leading-relaxed">
+              Today, with 9+ years of experience across telecom, energy, retail, and the public 
+              sector, I turn data into decisions that matter. I've reduced O&M costs by €450K/year 
+              through predictive maintenance, delivered fraud detection models with F1 = 0.95, and 
+              built MLOps pipelines that cut release cycles by 50% and boosted team productivity 
+              by 70%.
+            </p>
+
+            <p className="text-base text-muted-foreground leading-relaxed">
+              I specialize in end-to-end ML solutions — from raw data to production — with deep 
+              expertise in Python, MLflow, Kedro, and Explainable AI. Currently expanding into 
+              Generative AI, LLMs, and RAG pipelines.
+            </p>
+
+            <p className="text-base text-foreground leading-relaxed font-medium">
+              What drives me isn't just the technology — it's the impact. The ability to make data 
+              reveal its hidden truths, and use those truths to improve people's lives, is what makes 
+              me fall in love with this profession every single day.
+            </p>
           </motion.div>
         </div>
 

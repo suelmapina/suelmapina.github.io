@@ -131,26 +131,60 @@ const HeroSection = () => {
           ))}
         </svg>
 
-        {/* Icon nodes as HTML overlays */}
+        {/* Icon nodes with pulsing light */}
         {iconNodes.map(({ Icon, cx, cy }, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.8 + i * 0.15, duration: 0.5 }}
-            className="absolute flex items-center justify-center w-10 h-10 rounded-full bg-muted/30 border border-primary/30 backdrop-blur-sm"
+            className="absolute flex items-center justify-center"
             style={{
               left: `${cx}%`,
               top: `${cy}%`,
               transform: "translate(-50%, -50%)",
             }}
           >
+            {/* Outer pulsing glow ring */}
             <motion.div
-              animate={{ opacity: [0.6, 1, 0.6] }}
-              transition={{ repeat: Infinity, duration: 3, delay: i * 0.4 }}
-            >
-              <Icon size={16} className="text-secondary" />
-            </motion.div>
+              animate={{
+                scale: [1, 1.8, 1],
+                opacity: [0.4, 0, 0.4],
+              }}
+              transition={{ repeat: Infinity, duration: 2 + i * 0.3, ease: "easeInOut" }}
+              className="absolute w-12 h-12 rounded-full"
+              style={{
+                background: "radial-gradient(circle, hsl(185, 70%, 50%, 0.4) 0%, transparent 70%)",
+              }}
+            />
+            {/* Inner pulsing glow */}
+            <motion.div
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.6, 0.2, 0.6],
+              }}
+              transition={{ repeat: Infinity, duration: 1.5 + i * 0.2, ease: "easeInOut", delay: 0.3 }}
+              className="absolute w-10 h-10 rounded-full"
+              style={{
+                background: "radial-gradient(circle, hsl(270, 60%, 55%, 0.5) 0%, transparent 70%)",
+              }}
+            />
+            {/* Icon container */}
+            <div className="relative flex items-center justify-center w-10 h-10 rounded-full bg-muted/30 border border-primary/40 backdrop-blur-sm">
+              <motion.div
+                animate={{
+                  opacity: [0.7, 1, 0.7],
+                  filter: [
+                    "drop-shadow(0 0 2px hsl(185, 70%, 50%))",
+                    "drop-shadow(0 0 8px hsl(185, 70%, 50%))",
+                    "drop-shadow(0 0 2px hsl(185, 70%, 50%))",
+                  ],
+                }}
+                transition={{ repeat: Infinity, duration: 2, delay: i * 0.4 }}
+              >
+                <Icon size={16} className="text-secondary" />
+              </motion.div>
+            </div>
           </motion.div>
         ))}
       </div>

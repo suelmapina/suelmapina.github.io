@@ -6,12 +6,12 @@ import DataFlowParticles from "./DataFlowParticles";
 import { BarChart3, Brain, Database, Settings, TrendingUp, Cpu } from "lucide-react";
 
 const icons = [
-  { Icon: BarChart3, top: "18%", left: "8%" },
-  { Icon: Brain, top: "35%", left: "2%" },
-  { Icon: Database, top: "55%", left: "5%" },
-  { Icon: Settings, top: "72%", left: "12%" },
-  { Icon: TrendingUp, top: "25%", left: "22%" },
-  { Icon: Cpu, top: "65%", left: "25%" },
+  { Icon: BarChart3, angle: 0, radius: 18 },
+  { Icon: Brain, angle: 60, radius: 20 },
+  { Icon: Database, angle: 120, radius: 17 },
+  { Icon: Settings, angle: 180, radius: 19 },
+  { Icon: TrendingUp, angle: 240, radius: 18 },
+  { Icon: Cpu, angle: 300, radius: 20 },
 ];
 
 const HeroSection = () => {
@@ -27,20 +27,43 @@ const HeroSection = () => {
         </Canvas>
       </div>
 
-      {/* CSS overlay icons around globe area */}
-      <div className="absolute inset-0 z-[2] pointer-events-none">
-        {icons.map(({ Icon, top, left }, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1 + i * 0.15, duration: 0.5 }}
-            className="absolute flex items-center justify-center w-9 h-9 rounded-full bg-muted/20 border border-primary/20 backdrop-blur-sm"
-            style={{ top, left }}
-          >
-            <Icon size={14} className="text-secondary" />
-          </motion.div>
-        ))}
+      {/* Orbiting icons around globe */}
+      <div className="absolute z-[2] pointer-events-none" style={{ top: "50%", left: "15%", transform: "translate(-50%, -50%)" }}>
+        <div className="relative w-0 h-0">
+          {icons.map(({ Icon, angle, radius }, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{
+                opacity: [0.6, 1, 0.6],
+                scale: 1,
+                rotate: [0, 360],
+              }}
+              transition={{
+                opacity: { repeat: Infinity, duration: 4, delay: i * 0.5 },
+                rotate: { repeat: Infinity, duration: 20 + i * 3, ease: "linear" },
+                scale: { delay: 1 + i * 0.15, duration: 0.5 },
+              }}
+              className="absolute"
+              style={{
+                width: 0,
+                height: 0,
+                transformOrigin: "center center",
+              }}
+            >
+              <div
+                className="absolute flex items-center justify-center w-9 h-9 rounded-full bg-muted/20 border border-primary/20 backdrop-blur-sm"
+                style={{
+                  left: `${radius}vw`,
+                  top: `-18px`,
+                  transform: `rotate(${angle}deg) translateX(0)`,
+                }}
+              >
+                <Icon size={14} className="text-secondary" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       {/* Gradient overlays */}

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import profileImg from "@/assets/profile.png";
-import { Download, Briefcase, GraduationCap } from "lucide-react";
+import { Briefcase, GraduationCap } from "lucide-react";
 
 const experience = [
   {
@@ -70,32 +70,24 @@ const AboutSection = () => {
           <div className="w-16 h-1 bg-primary mx-auto rounded-full" />
         </motion.div>
 
-        {/* Profile + Summary */}
-        <div className="grid md:grid-cols-[300px_1fr] gap-12 mb-20">
+        {/* Profile Image + Story */}
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeUp}
             custom={1}
-            className="flex flex-col items-center"
+            className="flex justify-center"
           >
-            <div className="relative mb-6">
-              <div className="absolute -inset-2 bg-gradient-to-br from-primary to-secondary rounded-2xl opacity-30 blur-lg" />
+            <div className="relative">
+              <div className="absolute -inset-3 bg-gradient-to-br from-primary to-secondary rounded-2xl opacity-30 blur-lg" />
               <img
                 src={profileImg}
                 alt="Suelma Pina"
-                className="relative w-60 h-60 object-cover rounded-2xl"
+                className="relative w-full max-w-md h-auto object-cover rounded-2xl"
               />
             </div>
-            <a
-              href="/Suelma_Pina_Senior_Data_Scientist.pdf"
-              download
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity glow-primary text-sm"
-            >
-              <Download size={16} />
-              Download CV
-            </a>
           </motion.div>
 
           <motion.div
@@ -107,34 +99,34 @@ const AboutSection = () => {
             className="space-y-5"
           >
             <p className="text-base text-muted-foreground leading-relaxed">
-              At 8 years old, I ran my first "business" — buying candy and reselling it at school, 
-              even hiring my cousin as my first employee. My mother shut it down quickly, but the 
+              At 8 years old, I ran my first "business": buying candy and reselling it at school,
+              even hiring my cousin as my first employee. My mother shut it down quickly, but the
               entrepreneurial seed was planted.
             </p>
 
             <p className="text-base text-muted-foreground leading-relaxed">
-              Years later, a rejected university transfer — missed by just 0.10 points — redirected 
-              me from Economics to Statistics. What felt like failure was actually destiny. That 
+              Years later, a rejected university transfer (missed by just 0.10 points) redirected
+              me from Economics to Statistics. What felt like failure was actually destiny. That
               redirection led me to discover Data Science, and it's been love ever since.
             </p>
 
             <p className="text-base text-muted-foreground leading-relaxed">
-              Today, with 9+ years of experience across telecom, energy, retail, and the public 
-              sector, I turn data into decisions that matter. I've reduced O&M costs by €450K/year 
-              through predictive maintenance, delivered fraud detection models with F1 = 0.95, and 
-              built MLOps pipelines that cut release cycles by 50% and boosted team productivity 
+              Today, with 9+ years of experience across telecom, energy, retail, and the public
+              sector, I turn data into decisions that matter. I've reduced O&M costs by €450K/year
+              through predictive maintenance, delivered fraud detection models with F1 = 0.95, and
+              built MLOps pipelines that cut release cycles by 50% and boosted team productivity
               by 70%.
             </p>
 
             <p className="text-base text-muted-foreground leading-relaxed">
-              I specialize in end-to-end ML solutions — from raw data to production — with deep 
-              expertise in Python, MLflow, Kedro, and Explainable AI. Currently expanding into 
+              I specialize in end-to-end ML solutions, from raw data to production, with deep
+              expertise in Python, MLflow, Kedro, and Explainable AI. Currently expanding into
               Generative AI, LLMs, and RAG pipelines.
             </p>
 
             <p className="text-base text-foreground leading-relaxed font-medium">
-              What drives me isn't just the technology — it's the impact. The ability to make data 
-              reveal its hidden truths, and use those truths to improve people's lives, is what makes 
+              What drives me isn't just the technology. It's the impact. The ability to make data
+              reveal its hidden truths, and use those truths to improve people's lives, is what makes
               me fall in love with this profession every single day.
             </p>
           </motion.div>

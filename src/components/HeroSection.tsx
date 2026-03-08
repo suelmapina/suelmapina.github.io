@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { motion } from "framer-motion";
 import NetworkGlobe from "./NetworkGlobe";
 import DataFlowParticles from "./DataFlowParticles";
+import GlobeIcons from "./GlobeIcons";
 
 const HeroSection = () => {
   return (
@@ -13,66 +14,35 @@ const HeroSection = () => {
           <Suspense fallback={null}>
             <NetworkGlobe />
             <DataFlowParticles />
+            <GlobeIcons />
           </Suspense>
         </Canvas>
       </div>
 
-      {/* Subtle gradient overlays */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-r from-background/80 via-background/20 to-background/60" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 z-[1] bg-gradient-to-t from-background to-transparent" />
+      {/* Gradient overlays for blending */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 z-[1] bg-gradient-to-t from-background to-transparent" />
 
-      {/* Content — positioned right to complement globe on left */}
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex justify-end">
-          <div className="max-w-xl text-right">
-            <motion.p
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-secondary font-mono text-sm mb-4 tracking-widest uppercase"
-            >
-              Senior Data Scientist
-            </motion.p>
+      {/* Name centered — overlapping the flow */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+        <div className="text-center">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1.2 }}
+            className="text-secondary font-mono text-xs mb-3 tracking-[0.4em] uppercase"
+          >
+            Senior Data Scientist
+          </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-wider"
-            >
-              <span className="font-light">SUELMA</span>{" "}
-              <span className="text-gradient">PINA</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
-              className="text-base text-muted-foreground mb-10 leading-relaxed"
-            >
-              Transforming data into strategic decisions
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.9, duration: 0.8 }}
-              className="flex gap-4 justify-end"
-            >
-              <a
-                href="#portfolio"
-                className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity glow-primary text-sm"
-              >
-                Explore My Work
-              </a>
-              <a
-                href="#about"
-                className="px-6 py-3 rounded-lg border border-border text-foreground font-medium hover:bg-muted transition-colors text-sm"
-              >
-                About Me
-              </a>
-            </motion.div>
-          </div>
+          <motion.h1
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 1.5 }}
+            className="text-5xl md:text-7xl lg:text-8xl font-light tracking-[0.15em] text-foreground/90"
+          >
+            SUELMA{" "}
+            <span className="text-gradient font-normal">PINA</span>
+          </motion.h1>
         </div>
       </div>
 
@@ -80,8 +50,8 @@ const HeroSection = () => {
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-10 flex flex-col gap-5"
+        transition={{ delay: 1.5, duration: 0.6 }}
+        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-5"
       >
         <a href="mailto:suelmapina@gmail.com" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Email">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -94,7 +64,7 @@ const HeroSection = () => {
         </a>
       </motion.div>
 
-      {/* Bottom bar */}
+      {/* Bottom copyright */}
       <div className="absolute bottom-6 left-0 right-0 z-10 flex justify-center">
         <p className="text-[10px] text-muted-foreground/40 tracking-[0.3em] uppercase">
           All Rights Reserved &nbsp;|&nbsp; © Suelma Pina {new Date().getFullYear()}

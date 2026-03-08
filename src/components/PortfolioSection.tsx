@@ -103,9 +103,9 @@ const PortfolioSection = () => {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-1.5 text-xs font-mono">
                   {project.status === "completed" ? (
-                    <span className="text-green-400">● Completed</span>
+                    <span className="text-secondary">● Completed</span>
                   ) : (
-                    <span className="text-yellow-400 flex items-center gap-1">
+                    <span className="text-muted-foreground flex items-center gap-1">
                       <Clock size={12} />
                       In Progress
                     </span>

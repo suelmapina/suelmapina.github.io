@@ -6,12 +6,12 @@ import DataFlowParticles from "./DataFlowParticles";
 import { BarChart3, Brain, Database, Settings, TrendingUp, Cpu } from "lucide-react";
 
 const icons = [
-  { Icon: BarChart3, top: "18%", left: "8%" },
-  { Icon: Brain, top: "35%", left: "2%" },
-  { Icon: Database, top: "55%", left: "5%" },
-  { Icon: Settings, top: "72%", left: "12%" },
-  { Icon: TrendingUp, top: "25%", left: "22%" },
-  { Icon: Cpu, top: "65%", left: "25%" },
+  { Icon: BarChart3, angle: 0, radius: 18 },
+  { Icon: Brain, angle: 60, radius: 20 },
+  { Icon: Database, angle: 120, radius: 17 },
+  { Icon: Settings, angle: 180, radius: 19 },
+  { Icon: TrendingUp, angle: 240, radius: 18 },
+  { Icon: Cpu, angle: 300, radius: 20 },
 ];
 
 const HeroSection = () => {

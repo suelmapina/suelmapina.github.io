@@ -2,13 +2,6 @@ import { motion } from "framer-motion";
 import profileImg from "@/assets/profile.png";
 import { Download, Briefcase, GraduationCap } from "lucide-react";
 
-const skills = [
-  "Python", "R", "SQL", "PySpark", "scikit-learn", "TensorFlow", "PyTorch",
-  "MLflow", "Kedro", "Docker", "AWS SageMaker", "CI/CD",
-  "SHAP", "LIME", "Tableau", "Power BI", "Dash",
-  "LangChain", "RAG", "OpenCV", "YOLO",
-];
-
 const experience = [
   {
     role: "Senior Data Scientist & ML Specialist",

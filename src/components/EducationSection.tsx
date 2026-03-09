@@ -21,7 +21,7 @@ const fadeUp = {
 
 const EducationSection = () => {
   return (
-    <section id="education" className="py-24 relative">
+    <section id="education" className="py-12 relative">
       <div className="container mx-auto px-6">
         <motion.div
           initial="hidden"

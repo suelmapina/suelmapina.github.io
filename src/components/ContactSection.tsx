@@ -53,7 +53,7 @@ const ContactSection = () => {
         {/* Footer */}
         <div className="border-t border-border pt-8">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Suelma Pina. Built with React & Three.js
+            © {new Date().getFullYear()} Suelma Pina — Designed & Built by me.
           </p>
         </div>
       </div>

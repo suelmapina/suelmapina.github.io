@@ -36,7 +36,7 @@ const SkillBar = ({ name, level, label, index }: { name: string; level: number; 
     viewport={{ once: true }}
     variants={fadeUp}
     custom={index}
-    className="mb-5"
+    className="mb-3"
   >
     <div className="flex items-center justify-between mb-2">
       <span className="text-sm font-medium text-foreground uppercase tracking-wide">{name}</span>

@@ -16,27 +16,19 @@ const AboutSection = () => {
   return (
     <section id="about" className="py-24 relative">
       <div className="container mx-auto px-6">
-        {/* Header with Download CV */}
+        {/* Centered Header */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
           custom={0}
-          className="flex items-center justify-between mb-16"
+          className="text-center mb-16"
         >
-          <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              About <span className="text-gradient">Me</span>
-            </h2>
-            <div className="w-16 h-1 bg-primary rounded-full" />
-          </div>
-          <Button asChild variant="outline" className="gap-2">
-            <a href="/Suelma_Pina_Senior_Data_Scientist.pdf" download>
-              <Download size={16} />
-              Download CV
-            </a>
-          </Button>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            About <span className="text-gradient">Me</span>
+          </h2>
+          <div className="w-16 h-1 bg-primary mx-auto rounded-full" />
         </motion.div>
 
         {/* Profile Image + Story side by side */}
@@ -97,6 +89,15 @@ const AboutSection = () => {
               reveal its hidden truths, and use those truths to improve people's lives, is what makes
               me fall in love with this profession every single day.
             </p>
+
+            <div className="flex justify-center mt-4">
+              <Button asChild className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg">
+                <a href="/Suelma_Pina_Senior_Data_Scientist.pdf" download>
+                  <Download size={16} />
+                  Download CV
+                </a>
+              </Button>
+            </div>
           </motion.div>
         </div>
       </div>

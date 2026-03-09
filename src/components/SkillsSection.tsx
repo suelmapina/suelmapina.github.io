@@ -67,12 +67,13 @@ const SkillsSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
           custom={0}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 flex items-center gap-3">
+            <Code size={24} className="text-primary" />
             Skills & <span className="text-gradient">Languages</span>
           </h2>
-          <div className="w-16 h-1 bg-primary mx-auto rounded-full" />
+          <div className="w-16 h-1 bg-primary rounded-full" />
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-16">

@@ -89,6 +89,15 @@ const AboutSection = () => {
               reveal its hidden truths, and use those truths to improve people's lives, is what makes
               me fall in love with this profession every single day.
             </p>
+
+            <div className="flex justify-center mt-4">
+              <Button asChild className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-lg">
+                <a href="/Suelma_Pina_Senior_Data_Scientist.pdf" download>
+                  <Download size={16} />
+                  Download CV
+                </a>
+              </Button>
+            </div>
           </motion.div>
         </div>
       </div>

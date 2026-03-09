@@ -2,22 +2,22 @@ import { motion } from "framer-motion";
 import { Code, Globe } from "lucide-react";
 
 const skills = [
-  { name: "Python", level: 95, label: "Avançado" },
-  { name: "MLflow / Kedro", level: 90, label: "Avançado" },
-  { name: "Apache Airflow", level: 85, label: "Avançado" },
-  { name: "SQL / PostgreSQL", level: 90, label: "Avançado" },
-  { name: "Scikit-learn / XGBoost", level: 92, label: "Avançado" },
-  { name: "Deep Learning (PyTorch)", level: 75, label: "Muito bom" },
-  { name: "Docker / CI/CD", level: 80, label: "Muito bom" },
-  { name: "Streamlit / Metabase", level: 85, label: "Avançado" },
-  { name: "AWS / Cloud", level: 70, label: "Muito bom" },
-  { name: "NiFi", level: 65, label: "Bom" },
+  { name: "Python & Data Ecosystem", level: 95, label: "Expert" },
+  { name: "Machine Learning & Deep Learning", level: 92, label: "Expert" },
+  { name: "MLOps (MLflow, Kedro, CI/CD)", level: 90, label: "Expert" },
+  { name: "Generative AI (LLMs, RAG, LangChain)", level: 75, label: "Advanced" },
+  { name: "Explainable AI (SHAP, LIME)", level: 88, label: "Expert" },
+  { name: "SQL / PostgreSQL / PySpark", level: 90, label: "Expert" },
+  { name: "Docker / AWS SageMaker", level: 80, label: "Advanced" },
+  { name: "Data Visualization (Tableau, Power BI, Dash)", level: 85, label: "Expert" },
+  { name: "Time-Series Forecasting", level: 85, label: "Expert" },
+  { name: "Feature Engineering & Data Wrangling", level: 90, label: "Expert" },
 ];
 
 const languages = [
-  { name: "Português", level: 100, label: "Nativo" },
-  { name: "Crioulo de Cabo Verde", level: 100, label: "Nativo" },
-  { name: "English", level: 85, label: "Profissional" },
+  { name: "Portuguese", level: 100, label: "Native" },
+  { name: "Cape Verdean Creole", level: 100, label: "Native" },
+  { name: "English", level: 85, label: "Professional" },
 ];
 
 const fadeUp = {

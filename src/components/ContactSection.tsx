@@ -30,7 +30,7 @@ const ContactSection = () => {
               <span className="text-sm text-muted-foreground">Email</span>
             </a>
             <a
-              href="https://www.linkedin.com/in/suelmapina"
+              href="http://www.linkedin.com/in/suelma-pina-senior-data-scientist-ai"
               target="_blank"
               rel="noopener noreferrer"
               className="glass rounded-xl p-6 flex flex-col items-center gap-3 hover:border-primary/50 transition-all hover:-translate-y-1 min-w-[120px]"

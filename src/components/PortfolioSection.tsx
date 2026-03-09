@@ -256,7 +256,7 @@ const PortfolioSection = () => {
             Featured Projects
           </h3>
           <p className="text-xs text-muted-foreground mb-6">
-            High-impact projects aligned with Swiss market needs — finance, energy, compliance & experimentation.
+            High-impact projects in finance, energy, compliance & experimentation.
           </p>
         </motion.div>
 

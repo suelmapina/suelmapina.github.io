@@ -58,7 +58,7 @@ const SkillBar = ({ name, level, label, index }: { name: string; level: number; 
 
 const SkillsSection = () => {
   return (
-    <section id="skills" className="py-24 relative">
+    <section id="skills" className="py-12 relative">
       <div className="container mx-auto px-6">
         {/* Header */}
         <motion.div

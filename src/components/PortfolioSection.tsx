@@ -256,7 +256,7 @@ const PortfolioSection = () => {
             Featured Projects
           </h3>
           <p className="text-xs text-muted-foreground mb-6">
-            High-impact projects aligned with Swiss market needs — finance, energy, compliance & experimentation.
+            High-impact projects in finance, energy, compliance & experimentation.
           </p>
         </motion.div>
 
@@ -326,7 +326,7 @@ const PortfolioSection = () => {
                 viewport={{ once: true }}
                 variants={fadeUp}
                 custom={i + 7}
-                className="min-w-[300px] md:min-w-[360px] snap-start flex-shrink-0"
+                className="min-w-[calc(25%-18px)] snap-start flex-shrink-0 max-md:min-w-[calc(50%-12px)] max-sm:min-w-[calc(100%-0px)]"
               >
                 <ProjectCard project={project} />
               </motion.div>

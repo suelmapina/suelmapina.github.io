@@ -71,7 +71,7 @@ const AboutSection = () => {
         </motion.div>
 
         {/* Profile Image + Story */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+        <div className="grid md:grid-cols-[340px_1fr] gap-10 items-start mb-20">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -85,7 +85,7 @@ const AboutSection = () => {
               <img
                 src={profileImg}
                 alt="Suelma Pina"
-                className="relative w-full max-w-lg h-[500px] object-cover rounded-2xl"
+                className="relative w-full h-[450px] object-cover rounded-2xl"
               />
             </div>
           </motion.div>

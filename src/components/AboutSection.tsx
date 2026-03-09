@@ -32,7 +32,7 @@ const AboutSection = () => {
         </motion.div>
 
         {/* Profile Image + Story side by side */}
-        <div className="grid md:grid-cols-[300px_1fr] gap-10 items-stretch">
+        <div className="grid md:grid-cols-[400px_1fr] gap-10 items-stretch">
           <motion.div
             initial="hidden"
             whileInView="visible"

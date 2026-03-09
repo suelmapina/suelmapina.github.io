@@ -1,6 +1,4 @@
-# Welcome to your Lovable project
-
-## Project info
+# Suelma Pina - Senior Data Scientist
 
 **URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
 

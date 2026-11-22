@@ -1,106 +1,67 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Clock, ChevronLeft, ChevronRight, Star } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { ExternalLink, Github, Clock, CalendarClock, CheckCircle2, ArrowRight } from "lucide-react";
+
+type Status = "completed" | "in-progress" | "planned";
 
 interface Project {
   title: string;
   subtitle: string;
-  description: string;
+  problem: string;
+  approach: string;
   tags: string[];
+  data: string;
   github?: string;
   demo?: string;
-  status: "completed" | "in-progress";
-  featured?: boolean;
+  status: Status;
 }
 
-const featuredProjects: Project[] = [
-  {
-    title: "⚡ PowerCast EU",
-    subtitle: "Energy Load Forecasting & Anomaly Detection",
-    description:
-      "24h–14d load/price forecasting with anomaly detection and explainability. Rolling backtest, drift monitoring, and data contracts for Europe's energy grid.",
-    tags: ["Python", "MLflow", "FastAPI", "Time Series", "MLOps"],
-    status: "in-progress",
-    featured: true,
-  },
+interface UpcomingProject {
+  title: string;
+  focus: string;
+}
+
+// Flagship projects. Only add results here once they have been measured —
+// each project ships with a repository, a written case study and a demo.
+const projects: Project[] = [
   {
     title: "🧪 GrowthLab",
-    subtitle: "A/B Testing & Causal Inference Toolkit",
-    description:
-      "Toolkit for A/B testing, CUPED, DiD, and uplift modeling with automated decision memos. Power analysis, SRM checks, and guardrails built in.",
-    tags: ["Python", "statsmodels", "EconML", "DoWhy", "Streamlit"],
+    subtitle: "Customer Lifetime Value & Causal Uplift Decision Engine",
+    problem:
+      "Retention budgets are wasted on customers who would stay anyway — or who react badly to being contacted.",
+    approach:
+      "Probabilistic CLV (BG/NBD + Gamma-Gamma) combined with causal uplift (CATE meta-learners) to decide who should receive an incentive, evaluated with Qini curves and AUUC on randomized data.",
+    tags: ["Causal Inference", "PyMC-Marketing", "EconML", "LightGBM", "FastAPI"],
+    data: "Online Retail II (UCI) · Criteo Uplift",
     status: "in-progress",
-    featured: true,
   },
   {
-    title: "🔍 ProcureGuard",
-    subtitle: "Public Procurement Risk Scoring",
-    description:
-      "Risk/anomaly scoring per entity and contract with explainable ML. Entity resolution, network features, and interpretable rules for EU public spending.",
-    tags: ["Python", "Polars", "Graph Analytics", "dbt", "Dashboard"],
-    status: "in-progress",
-    featured: true,
+    title: "📦 StockWise",
+    subtitle: "Probabilistic Demand Forecasting & Inventory Optimization",
+    problem:
+      "Point forecasts hide uncertainty, so stock policies end up either overstocked or running out.",
+    approach:
+      "Quantile forecasts (P10/P50/P90) feed a linear-programming model that sets order quantities under budget and capacity constraints, with a financial backtest against a moving-average policy.",
+    tags: ["Time Series", "LightGBM", "StatsForecast", "PuLP", "MLflow"],
+    data: "M5 Forecasting (Walmart)",
+    status: "planned",
   },
   {
-    title: "⚖️ FairCredit",
-    subtitle: "Responsible Lending with Fairness Auditing",
-    description:
-      "Credit scoring model with fairness constraints, SHAP explanations, stress tests, and policy simulator. Model cards and data quality gates included.",
-    tags: ["LightGBM", "SHAP", "Great Expectations", "FastAPI"],
-    status: "in-progress",
-    featured: true,
+    title: "📜 RegLens",
+    subtitle: "Agentic Compliance Assistant over EU Regulation",
+    problem:
+      "Answering regulatory questions requires precise, citable sources — hallucinations are not acceptable.",
+    approach:
+      "Hybrid retrieval (dense + BM25) with cross-encoder reranking, an agentic workflow with human fallback on low confidence, and continuous evaluation of faithfulness, cost and latency.",
+    tags: ["RAG", "LangGraph", "Qdrant", "RAGAS", "LLM Evaluation"],
+    data: "EUR-Lex · EU AI Act",
+    status: "planned",
   },
 ];
 
-const otherProjects: Project[] = [
-  {
-    title: "📜 RegLens",
-    subtitle: "Regulatory QA Engine with Verified Citations",
-    description:
-      "RAG-powered QA engine over EUR-Lex with verified citations and anti-hallucination evaluation. Aligned with AI Act transparency requirements.",
-    tags: ["RAG", "Vector DB", "FastAPI", "LLM Eval"],
-    status: "in-progress",
-  },
-  {
-    title: "🎯 RankForge",
-    subtitle: "Learning-to-Rank Search Pipeline",
-    description:
-      "Industrial LTR benchmark with training/serving pipeline, NDCG@K evaluation, ablation studies, and lightweight feature store.",
-    tags: ["Python", "LightGBM Ranker", "FastAPI", "MLflow"],
-    status: "in-progress",
-  },
-  {
-    title: "💡 RecEngine",
-    subtitle: "Hybrid Recommender System",
-    description:
-      "From-zero-to-product hybrid recommender with collaborative filtering, content-based signals, cold-start handling, and fairness metrics.",
-    tags: ["Python", "LightFM", "FastAPI", "Dashboard"],
-    status: "in-progress",
-  },
-  {
-    title: "🌍 AirPulse EU",
-    subtitle: "Air Quality Nowcasting & Alerts",
-    description:
-      "Spatio-temporal nowcast/forecast with explainable alerts for pollution episodes. Drift detection and region-level validation for EU cities.",
-    tags: ["Geo/Time Series", "FastAPI", "Dashboard", "ESG"],
-    status: "in-progress",
-  },
-  {
-    title: "🏭 DefectEye",
-    subtitle: "Industrial Visual Anomaly Detection",
-    description:
-      "Pixel-level defect detection with segmentation masks and latency profiling. Threshold tuning for recall vs. false alarm trade-offs.",
-    tags: ["PyTorch", "Anomalib", "ONNX", "FastAPI"],
-    status: "in-progress",
-  },
-  {
-    title: "⚙️ LifeSpan",
-    subtitle: "Predictive Maintenance & RUL Forecasting",
-    description:
-      "Remaining Useful Life prediction with backtesting, calibration analysis, and operational alarm logic for industrial assets.",
-    tags: ["Python", "Seq Models", "MLflow", "Dashboard"],
-    status: "in-progress",
-  },
+const upcoming: UpcomingProject[] = [
+  { title: "Real-time fraud detection", focus: "cost-sensitive thresholds & drift monitoring" },
+  { title: "Two-stage recommender", focus: "retrieval + learning-to-rank" },
+  { title: "Predictive maintenance", focus: "survival analysis & maintenance scheduling" },
 ];
 
 const fadeUp = {
@@ -112,39 +73,52 @@ const fadeUp = {
   }),
 };
 
-const ProjectCard = ({ project, isFeatured = false }: { project: Project; isFeatured?: boolean }) => (
-  <div
-    className={`glass rounded-xl p-6 group hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col h-full ${
-      isFeatured ? "border-primary/20" : ""
-    }`}
-  >
-    <div className="flex items-center justify-between mb-3">
-      <div className="flex items-center gap-1.5 text-xs font-mono">
-        {project.status === "completed" ? (
-          <span className="text-secondary">● Completed</span>
-        ) : (
-          <span className="text-muted-foreground flex items-center gap-1">
-            <Clock size={12} />
-            In Progress
-          </span>
-        )}
-      </div>
-      {isFeatured && (
-        <span className="flex items-center gap-1 text-[10px] font-mono text-primary">
-          <Star size={10} className="fill-primary" />
-          Featured
-        </span>
-      )}
+const StatusBadge = ({ status }: { status: Status }) => {
+  if (status === "completed")
+    return (
+      <span className="text-secondary flex items-center gap-1">
+        <CheckCircle2 size={12} />
+        Completed
+      </span>
+    );
+  if (status === "in-progress")
+    return (
+      <span className="text-primary flex items-center gap-1">
+        <Clock size={12} />
+        In development
+      </span>
+    );
+  return (
+    <span className="text-muted-foreground flex items-center gap-1">
+      <CalendarClock size={12} />
+      Planned
+    </span>
+  );
+};
+
+const ProjectCard = ({ project }: { project: Project }) => (
+  <div className="glass rounded-xl p-6 group hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col h-full">
+    <div className="flex items-center justify-between mb-3 text-xs font-mono">
+      <StatusBadge status={project.status} />
     </div>
 
     <h3 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors text-lg leading-snug">
       {project.title}
     </h3>
-    <p className="text-xs text-secondary font-mono mb-3">{project.subtitle}</p>
+    <p className="text-xs text-secondary font-mono mb-4">{project.subtitle}</p>
 
-    <p className="text-sm text-muted-foreground mb-4 flex-1 leading-relaxed">
-      {project.description}
-    </p>
+    <div className="space-y-3 mb-4 flex-1">
+      <p className="text-sm text-muted-foreground leading-relaxed">
+        <span className="text-foreground font-medium">Problem. </span>
+        {project.problem}
+      </p>
+      <p className="text-sm text-muted-foreground leading-relaxed">
+        <span className="text-foreground font-medium">Approach. </span>
+        {project.approach}
+      </p>
+    </div>
+
+    <p className="text-[11px] font-mono text-muted-foreground mb-3">Data: {project.data}</p>
 
     <div className="flex flex-wrap gap-1.5 mb-5">
       {project.tags.map((tag) => (
@@ -182,168 +156,74 @@ const ProjectCard = ({ project, isFeatured = false }: { project: Project; isFeat
       )}
       {!project.demo && !project.github && (
         <span className="text-xs text-muted-foreground/50 italic">
-          Links coming soon
+          Repository & case study coming soon
         </span>
       )}
     </div>
   </div>
 );
 
-const PortfolioSection = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+const PortfolioSection = () => (
+  <section id="portfolio" className="py-12 relative">
+    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
-  const checkScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 0);
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
-  };
+    <div className="container mx-auto px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeUp}
+        custom={0}
+        className="text-center mb-12"
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          My <span className="text-gradient">Portfolio</span>
+        </h2>
+        <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-4" />
+        <p className="text-muted-foreground max-w-xl mx-auto">
+          End-to-end projects that turn models into decisions. Each one ships with open-source
+          code, a written case study and a live demo.
+        </p>
+      </motion.div>
 
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    checkScroll();
-    el.addEventListener("scroll", checkScroll);
-    window.addEventListener("resize", checkScroll);
-    return () => {
-      el.removeEventListener("scroll", checkScroll);
-      window.removeEventListener("resize", checkScroll);
-    };
-  }, []);
-
-  const scroll = (dir: "left" | "right") => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const amount = el.clientWidth * 0.8;
-    el.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
-  };
-
-  return (
-    <section id="portfolio" className="py-12 relative">
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={fadeUp}
-          custom={0}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            My <span className="text-gradient">Portfolio</span>
-          </h2>
-          <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-4" />
-          <p className="text-muted-foreground max-w-lg mx-auto">
-            Data science projects showcasing ML, predictive modeling, and scalable analytics solutions.
-          </p>
-        </motion.div>
-
-        {/* Featured Projects */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          custom={1}
-          className="mb-4"
-        >
-          <h3 className="text-lg font-semibold text-foreground mb-1 flex items-center gap-2">
-            <Star size={16} className="text-primary fill-primary" />
-            Featured Projects
-          </h3>
-          <p className="text-xs text-muted-foreground mb-6">
-            High-impact projects in finance, energy, compliance & experimentation.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-16">
-          {featuredProjects.map((project, i) => (
-            <motion.div
-              key={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              custom={i + 2}
-            >
-              <ProjectCard project={project} isFeatured />
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Other Projects — Carousel */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          custom={6}
-          className="mb-4"
-        >
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-foreground mb-1">More Projects</h3>
-              <p className="text-xs text-muted-foreground">
-                Explore additional data science & ML projects.
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => scroll("left")}
-                disabled={!canScrollLeft}
-                className="p-2 rounded-full border border-border bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                aria-label="Previous projects"
-              >
-                <ChevronLeft size={18} className="text-foreground" />
-              </button>
-              <button
-                onClick={() => scroll("right")}
-                disabled={!canScrollRight}
-                className="p-2 rounded-full border border-border bg-card hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                aria-label="Next projects"
-              >
-                <ChevronRight size={18} className="text-foreground" />
-              </button>
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="relative">
-          <div
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {projects.map((project, i) => (
+          <motion.div
+            key={project.title}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            custom={i + 1}
           >
-            {otherProjects.map((project, i) => (
-              <motion.div
-                key={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={i + 7}
-                className="min-w-[calc(25%-18px)] snap-start flex-shrink-0 max-md:min-w-[calc(50%-12px)] max-sm:min-w-[calc(100%-0px)]"
-              >
-                <ProjectCard project={project} />
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Fade edges */}
-          {canScrollLeft && (
-            <div className="absolute left-0 top-0 bottom-4 w-12 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-          )}
-          {canScrollRight && (
-            <div className="absolute right-0 top-0 bottom-4 w-12 bg-gradient-to-l from-background to-transparent pointer-events-none" />
-          )}
-        </div>
+            <ProjectCard project={project} />
+          </motion.div>
+        ))}
       </div>
-    </section>
-  );
-};
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeUp}
+        custom={4}
+        className="glass rounded-xl p-6"
+      >
+        <h3 className="text-sm font-semibold text-foreground mb-4 font-mono">Next up</h3>
+        <ul className="grid md:grid-cols-3 gap-4">
+          {upcoming.map((item) => (
+            <li key={item.title} className="flex items-start gap-2 text-sm">
+              <ArrowRight size={14} className="text-primary mt-1 shrink-0" />
+              <span>
+                <span className="text-foreground">{item.title}</span>
+                <span className="text-muted-foreground"> — {item.focus}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
+    </div>
+  </section>
+);
 
 export default PortfolioSection;

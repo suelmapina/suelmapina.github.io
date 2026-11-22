@@ -10,6 +10,7 @@ interface Project {
   approach: string;
   tags: string[];
   data: string;
+  result?: string;
   github?: string;
   demo?: string;
   status: Status;
@@ -29,10 +30,13 @@ const projects: Project[] = [
     problem:
       "Retention budgets are wasted on customers who would stay anyway — or who react badly to being contacted.",
     approach:
-      "Probabilistic CLV (BG/NBD + Gamma-Gamma) combined with causal uplift (CATE meta-learners) to decide who should receive an incentive, evaluated with Qini curves and AUUC on randomized data.",
-    tags: ["Causal Inference", "PyMC-Marketing", "EconML", "LightGBM", "FastAPI"],
+      "Probabilistic CLV (BG/NBD + Gamma-Gamma) combined with causal uplift (X-learner) into one rule — contact only if margin × CLV × uplift exceeds the cost — scored on observed outcomes of a randomized experiment.",
+    result:
+      "€21.5k incremental profit in simulation vs €11.9k for top-20% CLV targeting, contacting half as many customers.",
+    tags: ["Causal Inference", "PyMC-Marketing", "EconML", "LightGBM", "FastAPI", "Streamlit"],
     data: "Online Retail II (UCI) · Criteo Uplift",
-    status: "in-progress",
+    github: "https://github.com/suelmapina/growthlab",
+    status: "completed",
   },
   {
     title: "📦 StockWise",
@@ -116,6 +120,12 @@ const ProjectCard = ({ project }: { project: Project }) => (
         <span className="text-foreground font-medium">Approach. </span>
         {project.approach}
       </p>
+      {project.result && (
+        <p className="text-sm leading-relaxed rounded-lg border border-primary/30 bg-primary/10 px-3 py-2 text-foreground">
+          <span className="text-primary font-medium">Result. </span>
+          {project.result}
+        </p>
+      )}
     </div>
 
     <p className="text-[11px] font-mono text-muted-foreground mb-3">Data: {project.data}</p>

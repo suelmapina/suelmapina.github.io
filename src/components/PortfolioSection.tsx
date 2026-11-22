@@ -21,16 +21,16 @@ interface UpcomingProject {
   focus: string;
 }
 
-// Flagship projects. Only add results here once they have been measured —
+// Flagship projects. Only add results here once they have been measured;
 // each project ships with a repository, a written case study and a demo.
 const projects: Project[] = [
   {
     title: "🧪 GrowthLab",
     subtitle: "Customer Lifetime Value & Causal Uplift Decision Engine",
     problem:
-      "Retention budgets are wasted on customers who would stay anyway — or who react badly to being contacted.",
+      "Retention budgets are wasted on customers who would stay anyway, or who react badly to being contacted.",
     approach:
-      "Probabilistic CLV (BG/NBD + Gamma-Gamma) combined with causal uplift (X-learner) into one rule — contact only if margin × CLV × uplift exceeds the cost — scored on observed outcomes of a randomized experiment.",
+      "Probabilistic CLV (BG/NBD + Gamma-Gamma) combined with causal uplift (X-learner) into one rule: contact only if margin × CLV × uplift exceeds the cost. Policies are scored on observed outcomes of a randomized experiment.",
     result:
       "€21.5k incremental profit in simulation vs €11.9k for top-20% CLV targeting, contacting half as many customers.",
     tags: ["Causal Inference", "PyMC-Marketing", "EconML", "LightGBM", "FastAPI", "Streamlit"],
@@ -53,7 +53,7 @@ const projects: Project[] = [
     title: "📜 RegLens",
     subtitle: "Agentic Compliance Assistant over EU Regulation",
     problem:
-      "Answering regulatory questions requires precise, citable sources — hallucinations are not acceptable.",
+      "Answering regulatory questions requires precise, citable sources. Hallucinations are not acceptable.",
     approach:
       "Hybrid retrieval (dense + BM25) with cross-encoder reranking, an agentic workflow with human fallback on low confidence, and continuous evaluation of faithfulness, cost and latency.",
     tags: ["RAG", "LangGraph", "Qdrant", "RAGAS", "LLM Evaluation"],
@@ -226,7 +226,7 @@ const PortfolioSection = () => (
               <ArrowRight size={14} className="text-primary mt-1 shrink-0" />
               <span>
                 <span className="text-foreground">{item.title}</span>
-                <span className="text-muted-foreground"> — {item.focus}</span>
+                <span className="text-muted-foreground">: {item.focus}</span>
               </span>
             </li>
           ))}

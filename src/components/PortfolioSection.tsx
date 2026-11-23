@@ -36,6 +36,7 @@ const projects: Project[] = [
     tags: ["Causal Inference", "PyMC-Marketing", "EconML", "LightGBM", "FastAPI", "Streamlit"],
     data: "Online Retail II (UCI) · Criteo Uplift",
     github: "https://github.com/suelmapina/growthlab",
+    demo: "https://growthlab-suelmapina.streamlit.app/",
     status: "completed",
   },
   {
@@ -100,8 +101,21 @@ const StatusBadge = ({ status }: { status: Status }) => {
   );
 };
 
+const opendemo = (url?: string) => {
+  if (url) window.open(url, "_blank", "noopener,noreferrer");
+};
+
 const ProjectCard = ({ project }: { project: Project }) => (
-  <div className="glass rounded-xl p-6 group hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col h-full">
+  <div
+    onClick={() => opendemo(project.demo)}
+    onKeyDown={(e) => {
+      if (e.key === "Enter" && e.target === e.currentTarget) opendemo(project.demo);
+    }}
+    role={project.demo ? "link" : undefined}
+    tabIndex={project.demo ? 0 : undefined}
+    title={project.demo ? "Open the live demo" : undefined}
+    className={`glass rounded-xl p-6 group hover:border-primary/50 transition-all duration-300 hover:-translate-y-1 flex flex-col h-full ${project.demo ? "cursor-pointer" : ""}`}
+  >
     <div className="flex items-center justify-between mb-3 text-xs font-mono">
       <StatusBadge status={project.status} />
     </div>
@@ -141,7 +155,7 @@ const ProjectCard = ({ project }: { project: Project }) => (
       ))}
     </div>
 
-    <div className="flex gap-3">
+    <div className="flex gap-3" onClick={(e) => e.stopPropagation()}>
       {project.demo && (
         <a
           href={project.demo}

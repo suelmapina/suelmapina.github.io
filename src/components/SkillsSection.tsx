@@ -11,6 +11,8 @@ const skills = [
   { name: "Docker / AWS SageMaker", level: 60, label: "Intermediate" },
   { name: "Data Visualization (Tableau, Power BI, Dash)", level: 85, label: "Expert" },
   { name: "Time-Series Forecasting", level: 85, label: "Expert" },
+  { name: "Causal Inference & Uplift Modeling", level: 80, label: "Advanced" },
+  { name: "Bayesian Modeling (PyMC)", level: 80, label: "Advanced" },
   { name: "Feature Engineering & Data Wrangling", level: 90, label: "Expert" },
 ];
 

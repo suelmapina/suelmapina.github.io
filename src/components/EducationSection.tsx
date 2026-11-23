@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
 
 const education = [
-  { title: "NLP Training (378h)", institution: "Data Science Academy", year: "ongoing" },
+  { title: "NLP Training (378h)", institution: "Data Science Academy", year: "2026" },
   { title: "ML Engineer Training (344h)", institution: "Data Science Academy", year: "2025" },
   { title: "Data Scientist Training (482h)", institution: "Data Science Academy", year: "2023" },
   { title: "PG Diploma in BI & Analytics", institution: "Porto Business School", year: "2020" },

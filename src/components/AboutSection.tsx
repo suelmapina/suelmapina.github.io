@@ -71,7 +71,7 @@ const AboutSection = () => {
             </p>
 
             <p className="text-base text-muted-foreground leading-relaxed text-justify">
-              Today, with 9+ years of experience across telecom, energy, retail, and the public
+              Today, with 9+ years of experience across telecom, energy, retail, mobility, and the public
               sector, I turn data into decisions that matter. I have reduced O&amp;M costs by 450K
               euros per year through predictive maintenance, delivered fraud detection models with
               F1 = 0.95, and built MLOps pipelines that cut release cycles by 50% and boosted team

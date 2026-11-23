@@ -236,12 +236,6 @@ const HeroSection = () => {
         </a>
       </motion.div>
 
-      {/* Bottom copyright */}
-      <div className="absolute bottom-6 left-0 right-0 z-10 flex justify-center">
-        <p className="text-[10px] text-muted-foreground/40 tracking-[0.3em] uppercase">
-          All Rights Reserved &nbsp;|&nbsp; © Suelma Pina {new Date().getFullYear()}
-        </p>
-      </div>
     </section>
   );
 };

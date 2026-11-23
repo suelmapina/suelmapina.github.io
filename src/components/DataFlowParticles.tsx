@@ -4,7 +4,7 @@ import * as THREE from "three";
 
 /**
  * Creates a flowing "cloud" of particles that emanates from the globe (left)
- * and dissolves towards the right — like the Claire Mazzetti reference.
+ * and dissolves towards the right.
  */
 const DataFlowParticles = ({ count = 600 }) => {
   const mesh = useRef<THREE.Points>(null);
@@ -22,7 +22,7 @@ const DataFlowParticles = ({ count = 600 }) => {
       // X: from globe edge (-1.3) flowing right to (+4)
       const x = -1.3 + t * 5.5;
 
-      // Y/Z: tight near globe, spreading out, then thinning — creates the "cloud" shape
+      // Y/Z: tight near globe, spreading out, then thinning, which creates the "cloud" shape
       const envelope = Math.sin(t * Math.PI) * (1 - t * 0.3);
       const waveY = Math.sin(t * 6 + i * 0.1) * 0.3;
       const y = (Math.random() - 0.5) * envelope * 2.5 + waveY * (1 - t);
@@ -70,7 +70,7 @@ const DataFlowParticles = ({ count = 600 }) => {
       const ix = i * 3;
       const t = (basePositions[ix] + 1.3) / 5.5;
 
-      // Flowing wave motion — more movement in the middle of the flow
+      // Flowing wave motion, with more movement in the middle of the flow
       const wave = Math.sin(timeRef.current * speeds[i] + offsets[i]);
       const waveStrength = Math.sin(t * Math.PI) * 0.4;
 

@@ -5,7 +5,7 @@ const experience = [
   {
     role: "Senior Data Scientist & ML Specialist",
     company: "Digital Transformation CoLab (DTx)",
-    period: "Oct 2020 – Present",
+    period: "Oct 2020 to Present",
     highlights: [
       "Boosted team productivity 70% and cut release cycles 50% with Kedro, MLflow, CI/CD",
       "AutoML fraud detection with F1 = 0.95, AUC = 0.935",
@@ -15,7 +15,7 @@ const experience = [
   {
     role: "International Data Scientist",
     company: "Prewind (INEGI)",
-    period: "Jun 2017 – Jun 2019",
+    period: "Jun 2017 to Jun 2019",
     highlights: [
       "Reduced O&M costs 450K euros per year with predictive maintenance models",
       "Prevented 28% of weather-related shutdowns",
@@ -24,7 +24,7 @@ const experience = [
   {
     role: "Government Statistical Analyst",
     company: "Statistics Portugal (INE)",
-    period: "Jan 2017 – Dec 2017",
+    period: "Jan 2017 to Dec 2017",
     highlights: [
       "Improved land-use estimates 12% with EBLUP/SEBLUP models",
       "Achieved >95% data consistency across 50K+ records",

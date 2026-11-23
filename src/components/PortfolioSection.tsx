@@ -25,6 +25,21 @@ interface UpcomingProject {
 // each project ships with a repository, a written case study and a demo.
 const projects: Project[] = [
   {
+    title: "🛡️ Vigil",
+    subtitle: "Cost-Aware Fraud Screening with Drift & Fairness Monitoring",
+    problem:
+      "Fraud models are judged on accuracy, but the business pays in euros: fraud let through, analyst time and good customers turned away, while the fraud mix keeps moving.",
+    approach:
+      "LightGBM on a strict temporal split, calibrated and turned into approve, review or decline by expected cost within analyst capacity. TreeSHAP reasons, age never used to score, monthly drift and fairness monitoring, and a FastAPI service.",
+    result:
+      "€963k saved over two unseen months vs a rules engine (45% less) with the same analysts; the cheapest policy in all 25 cost scenarios tested.",
+    tags: ["Fraud Detection", "LightGBM", "Cost-Sensitive ML", "Drift Monitoring", "Fairness", "FastAPI"],
+    data: "Bank Account Fraud (Feedzai, NeurIPS 2022)",
+    github: "https://github.com/suelmapina/vigil",
+    demo: "https://vigil-suelmapina.streamlit.app/",
+    status: "completed",
+  },
+  {
     title: "🧪 GrowthLab",
     subtitle: "Customer Lifetime Value & Causal Uplift Decision Engine",
     problem:
@@ -40,17 +55,6 @@ const projects: Project[] = [
     status: "completed",
   },
   {
-    title: "📦 StockWise",
-    subtitle: "Probabilistic Demand Forecasting & Inventory Optimization",
-    problem:
-      "Point forecasts hide uncertainty, so stock policies end up either overstocked or running out.",
-    approach:
-      "Quantile forecasts (P10/P50/P90) feed a linear-programming model that sets order quantities under budget and capacity constraints, with a financial backtest against a moving-average policy.",
-    tags: ["Time Series", "LightGBM", "StatsForecast", "PuLP", "MLflow"],
-    data: "M5 Forecasting (Walmart)",
-    status: "planned",
-  },
-  {
     title: "📜 RegLens",
     subtitle: "Agentic Compliance Assistant over EU Regulation",
     problem:
@@ -64,7 +68,7 @@ const projects: Project[] = [
 ];
 
 const upcoming: UpcomingProject[] = [
-  { title: "Real-time fraud detection", focus: "cost-sensitive thresholds & drift monitoring" },
+  { title: "StockWise", focus: "probabilistic forecasting & inventory optimization" },
   { title: "Two-stage recommender", focus: "retrieval + learning-to-rank" },
   { title: "Predictive maintenance", focus: "survival analysis & maintenance scheduling" },
 ];
